@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAvailability, updateAvailability } from "../lib/api";
+import TimezonePicker from "../components/TimezonePicker";
 
 const weekdays = [
   { label: "Mon", val: 0 },
@@ -83,12 +84,12 @@ export default function AvailabilityPage() {
           <div className="space-y-4">
             <div>
               <div className="text-sm font-medium">Timezone</div>
-              <input
-                className="mt-2 border border-gray-200 rounded-xl px-3 py-2 w-full"
-                value={timezone}
-                onChange={(e) => setTimezone(e.target.value)}
-                placeholder="Asia/Kolkata"
-              />
+              <div className="mt-2">
+                <TimezonePicker
+                  value={timezone}
+                  onChange={(tz) => setTimezone(tz)}
+                />
+              </div>
             </div>
 
             <div>
