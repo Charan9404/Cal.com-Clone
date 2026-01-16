@@ -68,4 +68,4 @@ class Command(BaseCommand):
             }
         )
 
-        self.stdout.write(self.style.SUCCESS("✅ Seed completed: 2 event types, availability, 1 booking"))
+        self.stdout.write(self.style.SUCCESS("Seed completed: 2 event types, availability, 1 booking"))

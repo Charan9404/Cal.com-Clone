@@ -14,7 +14,7 @@ export default function HomePage() {
               </div>
               <span className="text-lg font-semibold text-gray-900">CalClone</span>
             </div>
-            <div className="text-sm text-gray-500">Scheduling made simple</div>
+            <div className="text-xs text-gray-500 hidden sm:block">Scheduling made simple</div>
           </div>
         </div>
       </header>

@@ -115,7 +115,7 @@ export default function PublicBookingPage() {
       <div className="mx-auto max-w-4xl px-4 py-8 md:px-8 md:py-12">
         <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
           {/* Header */}
-          <div className="border-b border-gray-200 bg-white px-8 py-8">
+          <div className="border-b border-gray-200 bg-white px-4 py-6 md:px-8 md:py-8">
             <h1 className="text-2xl font-semibold tracking-tight text-gray-900">
               {eventType ? eventType.title : "Loading…"}
             </h1>
@@ -145,7 +145,7 @@ export default function PublicBookingPage() {
           {/* Body */}
           <div className="grid md:grid-cols-2">
             {/* Left: Date + Slots */}
-            <div className="border-b border-slate-200/60 px-8 py-8 md:border-b-0 md:border-r md:border-slate-200/60">
+            <div className="border-b border-slate-200/60 px-4 py-6 md:border-b-0 md:border-r md:border-slate-200/60 md:px-8 md:py-8">
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-white">1</div>
                 <div className="text-sm font-semibold text-slate-900">
@@ -191,7 +191,7 @@ export default function PublicBookingPage() {
                       }}
                       type="button"
                       className={[
-                        "rounded-md border px-4 py-2.5 text-sm font-medium transition-all",
+                        "rounded-md border px-4 py-3 text-sm font-medium transition-all min-h-[44px]",
                         selected === s
                           ? "bg-black text-white border-black"
                           : "border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50",
@@ -205,7 +205,7 @@ export default function PublicBookingPage() {
             </div>
 
             {/* Right: Booker details */}
-            <div className="px-8 py-8">
+            <div className="px-4 py-6 md:px-8 md:py-8">
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-900 text-xs font-bold text-white">3</div>
                 <div className="text-sm font-bold text-slate-900">
@@ -259,7 +259,7 @@ export default function PublicBookingPage() {
                 <button
                   onClick={onBook}
                   disabled={!selected || !name || !email || submitting}
-                  className="mt-2 flex w-full items-center justify-center rounded-md bg-black px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-black"
+                  className="mt-2 flex w-full items-center justify-center rounded-md bg-black px-4 py-3.5 text-sm font-semibold text-white transition-all hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-black min-h-[44px]"
                 >
                   {submitting ? "Booking…" : (
                     <>

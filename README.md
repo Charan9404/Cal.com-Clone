@@ -2,24 +2,24 @@
 
 A functional scheduling/booking web application that replicates Cal.com's design and user experience. The application allows users to create event types, set their availability, and let others book time slots through a public booking page.
 
-## 🚀 Live Demo
+## Live Demo
 
 - **Frontend**: [Deployed on Vercel](https://cal-com-clone-roan.vercel.app)
 - **Backend API**: [Deployed on Render](https://cal-com-clone.onrender.com)
 
-## 📋 Features
+## Features
 
 ### Core Features
-- ✅ **Event Types Management**: Create, edit, delete, and list event types with title, description, duration, and unique URL slug
-- ✅ **Availability Settings**: Set available days of the week, time slots for each day, and timezone
-- ✅ **Public Booking Page**: Calendar date picker, available time slots display, booking form, and double-booking prevention
-- ✅ **Bookings Dashboard**: View upcoming and past bookings, cancel bookings
+- **Event Types Management**: Create, edit, delete, and list event types with title, description, duration, and unique URL slug
+- **Availability Settings**: Set available days of the week, time slots for each day, and timezone
+- **Public Booking Page**: Calendar date picker, available time slots display, booking form, and double-booking prevention
+- **Bookings Dashboard**: View upcoming and past bookings, cancel bookings
 
 ### Bonus Features
-- ✅ **Responsive Design**: Fully responsive for mobile, tablet, and desktop
-- ✅ **Modern UI**: Cal.com-inspired design with smooth animations and transitions
+- **Responsive Design**: Fully responsive for mobile, tablet, and desktop
+- **Modern UI**: Cal.com-inspired design with smooth animations and transitions
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **React.js** (v19.2.0) - Single Page Application
@@ -42,7 +42,7 @@ A functional scheduling/booking web application that replicates Cal.com's design
 - **Vercel** - Frontend hosting
 - **Render** - Backend hosting
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 CalCom Clone/
@@ -71,7 +71,7 @@ CalCom Clone/
 └── README.md              # This file
 ```
 
-## 🗄️ Database Schema
+## Database Schema
 
 ### Models
 
@@ -108,7 +108,7 @@ CalCom Clone/
 - Unique constraint on confirmed bookings per event type and start time
 - Unique constraint on `Booking.booking_uid`
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### Prerequisites
 - Python 3.11 or higher
@@ -200,7 +200,7 @@ CalCom Clone/
    ```
    Frontend will be available at `http://localhost:5173`
 
-## 🚢 Deployment
+## Deployment
 
 ### Backend (Render)
 
@@ -227,7 +227,7 @@ CalCom Clone/
 3. **Set environment variables:**
    - `VITE_API_BASE_URL` - Your Render backend URL (e.g., `https://cal-com-clone.onrender.com`)
 
-## 📝 Assumptions
+## Assumptions
 
 1. **No Authentication**: The application assumes a default user is logged in for the admin side. No login system is implemented.
 
@@ -239,7 +239,7 @@ CalCom Clone/
 
 5. **Double Booking Prevention**: The application prevents double booking through database constraints and transaction handling.
 
-## 🧪 Testing
+## Testing
 
 ### Manual Testing Checklist
 
@@ -267,7 +267,7 @@ CalCom Clone/
    - Cancel a booking
    - Verify canceled booking status updates
 
-## 📚 API Endpoints
+## API Endpoints
 
 ### Admin Endpoints
 - `GET /api/event-types/` - List all event types
@@ -286,7 +286,7 @@ CalCom Clone/
 - `POST /api/public/bookings/` - Create booking
 - `GET /api/public/bookings/{uid}/` - Get booking details
 
-## 🎨 UI/UX Design
+## UI/UX Design
 
 The application closely follows Cal.com's design patterns:
 - Clean, modern interface with gradient backgrounds
@@ -295,15 +295,15 @@ The application closely follows Cal.com's design patterns:
 - Responsive design for all screen sizes
 - Consistent color scheme (slate grays with accent colors)
 
-## 🤝 Contributing
+## Contributing
 
 This is an assignment project. For questions or issues, please refer to the assignment requirements.
 
-## 📄 License
+## License
 
 This project is created for educational/assignment purposes.
 
-## 👤 Author
+## Author
 
 Created as part of SDE Intern Fullstack Assignment.
 

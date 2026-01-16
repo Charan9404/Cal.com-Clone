@@ -26,7 +26,7 @@ def home(request):
     })
 
 urlpatterns = [
-    path("", home),                 # ✅ root returns 200
+    path("", home),                 # root returns 200
     path("admin/", admin.site.urls),
     path("api/", include("scheduling.urls")),
 ]
