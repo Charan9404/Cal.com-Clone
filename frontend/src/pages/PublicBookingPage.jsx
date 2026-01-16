@@ -111,30 +111,33 @@ export default function PublicBookingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-50 to-slate-100 text-slate-900">
-      <div className="mx-auto max-w-6xl px-4 py-8 md:px-8 md:py-12">
-        <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 shadow-xl backdrop-blur-sm">
+    <div className="min-h-screen bg-gray-50 text-gray-900">
+      <div className="mx-auto max-w-4xl px-4 py-8 md:px-8 md:py-12">
+        <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
           {/* Header */}
-          <div className="border-b border-slate-200/60 bg-gradient-to-r from-slate-50 to-white px-8 py-8">
-            <div className="text-xs font-semibold tracking-wide uppercase text-slate-500">Booking</div>
-            <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900">
+          <div className="border-b border-gray-200 bg-white px-8 py-8">
+            <h1 className="text-2xl font-semibold tracking-tight text-gray-900">
               {eventType ? eventType.title : "Loading…"}
             </h1>
 
             {eventType ? (
-              <div className="mt-4 flex flex-wrap items-center gap-3 text-sm font-medium text-slate-600">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-gradient-to-r from-slate-100 to-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm">
-                  <Clock className="h-3 w-3" />
+              <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-gray-600">
+                <span className="inline-flex items-center gap-1.5 rounded-md border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-700">
+                  <Clock className="h-3.5 w-3.5" />
                   {eventType.duration_minutes}m
                 </span>
-                <span className="text-slate-400">•</span>
-                <span className="max-w-3xl">
-                  {eventType.description || "No description."}
-                </span>
+                {eventType.description && (
+                  <>
+                    <span className="text-gray-300">•</span>
+                    <span className="max-w-3xl text-gray-600">
+                      {eventType.description}
+                    </span>
+                  </>
+                )}
               </div>
             ) : (
-              <p className="mt-3 text-sm font-medium text-slate-600">
-                Fetching event details…
+              <p className="mt-3 text-sm text-gray-500">
+                Loading event details…
               </p>
             )}
           </div>
@@ -153,7 +156,7 @@ export default function PublicBookingPage() {
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
+                className="w-full rounded-md border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none transition-all focus:border-gray-400 focus:ring-2 focus:ring-gray-200"
               />
               <div className="mt-3 flex items-center gap-2 text-sm text-slate-600">
                 <Calendar className="h-4 w-4 text-slate-400" />
@@ -188,10 +191,10 @@ export default function PublicBookingPage() {
                       }}
                       type="button"
                       className={[
-                        "rounded-xl border px-4 py-3 text-sm font-semibold shadow-sm transition-all",
+                        "rounded-md border px-4 py-2.5 text-sm font-medium transition-all",
                         selected === s
-                          ? "bg-gradient-to-r from-slate-900 to-slate-800 text-white border-slate-900 shadow-md shadow-slate-900/20"
-                          : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:shadow",
+                          ? "bg-black text-white border-black"
+                          : "border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50",
                       ].join(" ")}
                     >
                       {formatTime(s)}
@@ -209,14 +212,14 @@ export default function PublicBookingPage() {
                   Your details
                 </div>
               </div>
-              <div className="mt-3 mb-6 rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-3 text-sm font-medium text-slate-700">
+              <div className="mt-3 mb-6 rounded-md border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
                     {selected ? (
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                    <span>Selected: <span className="font-semibold text-slate-900">{formatDateTime(selected)}</span></span>
+                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                    <span>Selected: <span className="font-semibold text-gray-900">{formatDateTime(selected)}</span></span>
                   </div>
                 ) : (
-                  "Select a time on the left to continue."
+                  <span className="text-gray-500">Select a time on the left to continue.</span>
                 )}
               </div>
 
@@ -226,7 +229,7 @@ export default function PublicBookingPage() {
                     Name
                   </div>
                   <input
-                    className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
+                    className="w-full rounded-md border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none transition-all focus:border-gray-400 focus:ring-2 focus:ring-gray-200"
                     placeholder="Your name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -239,7 +242,7 @@ export default function PublicBookingPage() {
                     Email
                   </div>
                   <input
-                    className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
+                    className="w-full rounded-md border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none transition-all focus:border-gray-400 focus:ring-2 focus:ring-gray-200"
                     placeholder="you@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -256,7 +259,7 @@ export default function PublicBookingPage() {
                 <button
                   onClick={onBook}
                   disabled={!selected || !name || !email || submitting}
-                  className="mt-2 flex items-center justify-center rounded-xl bg-gradient-to-r from-slate-900 to-slate-800 px-5 py-3.5 text-sm font-semibold text-white shadow-md shadow-slate-900/20 transition-all hover:from-slate-800 hover:to-slate-700 hover:shadow-lg disabled:opacity-60 disabled:hover:from-slate-900 disabled:hover:to-slate-800"
+                  className="mt-2 flex w-full items-center justify-center rounded-md bg-black px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-black"
                 >
                   {submitting ? "Booking…" : (
                     <>
@@ -275,8 +278,8 @@ export default function PublicBookingPage() {
         </div>
 
         <div className="mt-6 text-center">
-          <div className="inline-block text-xs font-semibold text-slate-500">
-            CalClone • Public booking page
+          <div className="inline-block text-xs text-gray-400">
+            CalClone
           </div>
         </div>
       </div>
