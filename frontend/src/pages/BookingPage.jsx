@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { cancelBooking, listBookings } from "../lib/api";
+import { CheckCircle2, Calendar, User } from "lucide-react";
 
 function formatDateTime(iso) {
   try {
@@ -79,7 +80,7 @@ export default function BookingsPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
@@ -89,15 +90,15 @@ export default function BookingsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="inline-flex rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
+      <div className="inline-flex rounded-xl border border-slate-200/80 bg-white/90 p-1.5 shadow-md backdrop-blur-sm">
         <button
           onClick={() => setTab("upcoming")}
           type="button"
           className={[
-            "rounded-xl px-3 py-2 text-sm font-semibold transition",
+            "rounded-lg px-4 py-2.5 text-sm font-semibold transition-all",
             tab === "upcoming"
-              ? "bg-slate-900 text-white"
-              : "text-slate-700 hover:bg-slate-50",
+              ? "bg-gradient-to-r from-slate-900 to-slate-800 text-white shadow-md shadow-slate-900/20"
+              : "text-slate-700 hover:bg-slate-50 hover:text-slate-900",
           ].join(" ")}
         >
           Upcoming
@@ -106,10 +107,10 @@ export default function BookingsPage() {
           onClick={() => setTab("past")}
           type="button"
           className={[
-            "rounded-xl px-3 py-2 text-sm font-semibold transition",
+            "rounded-lg px-4 py-2.5 text-sm font-semibold transition-all",
             tab === "past"
-              ? "bg-slate-900 text-white"
-              : "text-slate-700 hover:bg-slate-50",
+              ? "bg-gradient-to-r from-slate-900 to-slate-800 text-white shadow-md shadow-slate-900/20"
+              : "text-slate-700 hover:bg-slate-50 hover:text-slate-900",
           ].join(" ")}
         >
           Past
@@ -117,8 +118,8 @@ export default function BookingsPage() {
       </div>
 
       {/* List */}
-      <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-        <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+      <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 shadow-lg backdrop-blur-sm">
+        <div className="flex items-center justify-between border-b border-slate-200/60 bg-gradient-to-r from-slate-50 to-white px-6 py-5">
           <div className="text-sm font-semibold text-slate-900">
             {headerTitle}
           </div>
@@ -129,8 +130,9 @@ export default function BookingsPage() {
 
         {/* Toast */}
         {toast ? (
-          <div className="px-5 pt-4">
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+          <div className="px-6 pt-5">
+            <div className="flex items-center gap-2 rounded-xl border border-emerald-200/80 bg-gradient-to-r from-emerald-50 to-emerald-50/50 px-4 py-3 text-sm font-medium text-emerald-700 shadow-sm">
+              <CheckCircle2 className="h-4 w-4" />
               {toast}
             </div>
           </div>
@@ -138,28 +140,28 @@ export default function BookingsPage() {
 
         {/* Error */}
         {error ? (
-          <div className="px-5 pt-4">
-            <div className="rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+          <div className="px-6 pt-5">
+            <div className="rounded-xl border border-red-200/80 bg-gradient-to-r from-red-50 to-red-50/50 px-4 py-3 text-sm font-medium text-red-700 shadow-sm">
               {error}
             </div>
           </div>
         ) : null}
 
         {loading ? (
-          <div className="px-5 py-10 text-sm text-slate-600">
+          <div className="px-6 py-12 text-sm font-medium text-slate-600">
             Fetching bookings…
           </div>
         ) : items.length === 0 ? (
-          <div className="px-5 py-10">
+          <div className="px-6 py-12">
             <div className="text-sm font-semibold text-slate-900">
               No {tab === "upcoming" ? "upcoming" : "past"} bookings
             </div>
-            <div className="mt-1 text-sm text-slate-600">
+            <div className="mt-2 text-sm text-slate-600">
               Once someone books your event, it will appear here.
             </div>
           </div>
         ) : (
-          <div className="divide-y divide-slate-200">
+          <div className="divide-y divide-slate-200/60">
             {items.map((b) => {
               const isConfirmed = b.status === "CONFIRMED";
               const isCanceled = b.status === "CANCELED";
@@ -168,21 +170,21 @@ export default function BookingsPage() {
               return (
                 <div
                   key={b.id}
-                  className="px-5 py-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between"
+                  className="px-6 py-5 flex flex-col gap-4 md:flex-row md:items-start md:justify-between hover:bg-slate-50/50 transition-colors"
                 >
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2.5">
                       <div className="text-sm font-semibold text-slate-900">
                         {b.event_type_slug}
                       </div>
 
                       <span
                         className={[
-                          "rounded-full border px-2 py-0.5 text-[11px] font-semibold",
+                          "rounded-full border px-2.5 py-1 text-[11px] font-bold shadow-sm",
                           isConfirmed
-                            ? "border-slate-200 bg-slate-50 text-slate-700"
+                            ? "border-slate-200 bg-gradient-to-r from-slate-100 to-slate-50 text-slate-700"
                             : isCanceled
-                            ? "border-red-200 bg-red-50 text-red-700"
+                            ? "border-red-200 bg-gradient-to-r from-red-50 to-red-50/50 text-red-700"
                             : "border-slate-200 bg-white text-slate-700",
                         ].join(" ")}
                       >
@@ -190,19 +192,20 @@ export default function BookingsPage() {
                       </span>
                     </div>
 
-                    <div className="mt-2 text-sm text-slate-600">
-                      {formatDateTime(b.start_at)} → {formatTime(b.end_at)}
+                    <div className="mt-3 flex items-center gap-2 text-sm text-slate-600">
+                      <Calendar className="h-4 w-4 text-slate-400" />
+                      <span>{formatDateTime(b.start_at)} → {formatTime(b.end_at)}</span>
                     </div>
 
-                    <div className="mt-1 text-sm text-slate-600">
-                      {b.booker_name} •{" "}
-                      <span className="font-mono">{b.booker_email}</span>
+                    <div className="mt-2 flex items-center gap-2 text-sm text-slate-600">
+                      <User className="h-4 w-4 text-slate-400" />
+                      <span>{b.booker_name} • <span className="font-mono text-slate-700">{b.booker_email}</span></span>
                     </div>
                   </div>
 
                   {canCancel ? (
                     <button
-                      className="shrink-0 rounded-2xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-60"
+                      className="shrink-0 rounded-xl border border-red-200 bg-white px-4 py-2.5 text-sm font-semibold text-red-700 shadow-sm transition-all hover:bg-red-50 hover:shadow disabled:opacity-60"
                       onClick={() => onCancel(b.id)}
                       disabled={cancelingId === b.id}
                       type="button"

@@ -5,6 +5,7 @@ import {
   listEventTypes,
   updateEventType,
 } from "../lib/api";
+import { CheckCircle2 } from "lucide-react";
 
 function slugify(input = "") {
   return input
@@ -20,16 +21,16 @@ function ModalShell({ title, onClose, children, footer }) {
   return (
     <div className="fixed inset-0 z-50">
       <div
-        className="absolute inset-0 bg-black/40"
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden="true"
       />
       <div className="relative flex min-h-screen items-center justify-center p-4">
-        <div className="w-full max-w-xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl">
-          <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+        <div className="w-full max-w-xl overflow-hidden rounded-2xl border border-slate-200/80 bg-white/95 shadow-2xl backdrop-blur-md">
+          <div className="flex items-center justify-between border-b border-slate-200/60 bg-gradient-to-r from-slate-50 to-white px-6 py-5">
             <div className="text-sm font-semibold text-slate-900">{title}</div>
             <button
-              className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              className="rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-slate-50 hover:shadow"
               onClick={onClose}
               type="button"
             >
@@ -37,10 +38,10 @@ function ModalShell({ title, onClose, children, footer }) {
             </button>
           </div>
 
-          <div className="px-5 py-5">{children}</div>
+          <div className="px-6 py-6">{children}</div>
 
           {footer ? (
-            <div className="border-t border-slate-200 px-5 py-4">{footer}</div>
+            <div className="border-t border-slate-200/60 bg-gradient-to-r from-slate-50/50 to-white px-6 py-5">{footer}</div>
           ) : null}
         </div>
       </div>
@@ -192,7 +193,7 @@ export default function EventTypesPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
@@ -204,24 +205,31 @@ export default function EventTypesPage() {
       </div>
 
       {/* Create */}
-      <div className="rounded-3xl border border-slate-200 bg-white shadow-sm">
-        <div className="border-b border-slate-200 px-5 py-4">
-          <div className="text-sm font-semibold text-slate-900">
-            Create Event Type
-          </div>
-          <div className="mt-1 text-xs text-slate-500">
-            Tip: keep slugs short and unique (e.g., quick-chat-15).
+      <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 shadow-lg backdrop-blur-sm">
+        <div className="border-b border-slate-200/60 bg-gradient-to-r from-slate-50 to-white px-6 py-5">
+          <div className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900 text-xs font-bold text-white">
+              +
+            </div>
+            <div>
+              <div className="text-sm font-semibold text-slate-900">
+                Create Event Type
+              </div>
+              <div className="mt-0.5 text-xs text-slate-500">
+                Tip: keep slugs short and unique (e.g., quick-chat-15).
+              </div>
+            </div>
           </div>
         </div>
 
-        <form onSubmit={onCreate} className="px-5 py-5">
-          <div className="grid gap-3 md:grid-cols-2">
+        <form onSubmit={onCreate} className="px-6 py-6">
+          <div className="grid gap-4 md:grid-cols-2">
             <div className="md:col-span-2">
-              <label className="mb-1 block text-xs font-semibold text-slate-600">
+              <label className="mb-2 block text-xs font-semibold text-slate-700">
                 Title
               </label>
               <input
-                className="w-full rounded-2xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-slate-400"
+                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                 placeholder="Quick Chat"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -229,11 +237,11 @@ export default function EventTypesPage() {
             </div>
 
             <div className="md:col-span-2">
-              <label className="mb-1 block text-xs font-semibold text-slate-600">
+              <label className="mb-2 block text-xs font-semibold text-slate-700">
                 Description (optional)
               </label>
               <textarea
-                className="w-full min-h-[96px] rounded-2xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-slate-400"
+                className="w-full min-h-[96px] rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                 placeholder="What this meeting is about…"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -241,32 +249,32 @@ export default function EventTypesPage() {
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-600">
+              <label className="mb-2 block text-xs font-semibold text-slate-700">
                 Duration (minutes)
               </label>
               <input
                 type="number"
                 min="5"
                 step="5"
-                className="w-full rounded-2xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-slate-400"
+                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                 value={duration}
                 onChange={(e) => setDuration(e.target.value)}
               />
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-600">
+              <label className="mb-2 block text-xs font-semibold text-slate-700">
                 Slug
               </label>
               <input
-                className="w-full rounded-2xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-slate-400"
+                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                 placeholder="quick-chat-15"
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
               />
-              <div className="mt-1 text-[11px] text-slate-500">
+              <div className="mt-2 text-[11px] font-medium text-slate-500">
                 Public URL:{" "}
-                <span className="font-mono">
+                <span className="font-mono text-slate-700">
                   {publicBase}/book/{slug || "<slug>"}
                 </span>
               </div>
@@ -274,21 +282,21 @@ export default function EventTypesPage() {
           </div>
 
           {createError ? (
-            <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+            <div className="mt-5 rounded-xl border border-red-200/80 bg-gradient-to-r from-red-50 to-red-50/50 px-4 py-3 text-sm font-medium text-red-700 shadow-sm">
               {createError}
             </div>
           ) : null}
 
-          <div className="mt-5 flex items-center gap-3">
+          <div className="mt-6 flex items-center gap-3">
             <button
-              className="rounded-2xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-black disabled:opacity-60"
+                className="rounded-xl bg-gradient-to-r from-slate-900 to-slate-800 px-5 py-3 text-sm font-semibold text-white shadow-md shadow-slate-900/20 transition-all hover:from-slate-800 hover:to-slate-700 hover:shadow-lg disabled:opacity-60 disabled:hover:from-slate-900 disabled:hover:to-slate-800"
               type="submit"
               disabled={creating}
             >
-              {creating ? "Creating…" : "Create"}
+              {creating ? "Creating…" : "Create Event"}
             </button>
             <button
-              className="rounded-2xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              className="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-slate-50 hover:shadow"
               type="button"
               onClick={() => {
                 setTitle("");
@@ -305,8 +313,8 @@ export default function EventTypesPage() {
       </div>
 
       {/* List */}
-      <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-        <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+      <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 shadow-lg backdrop-blur-sm">
+        <div className="flex items-center justify-between border-b border-slate-200/60 bg-gradient-to-r from-slate-50 to-white px-6 py-5">
           <div className="text-sm font-semibold text-slate-900">
             Your event types
           </div>
@@ -316,43 +324,43 @@ export default function EventTypesPage() {
         </div>
 
         {loading ? (
-          <div className="px-5 py-10 text-sm text-slate-600">
+          <div className="px-6 py-12 text-sm font-medium text-slate-600">
             Fetching event types…
           </div>
         ) : items.length === 0 ? (
-          <div className="px-5 py-10">
-            <div className="text-sm font-semibold text-slate-900">
+          <div className="px-6 py-12">
+            <div className="text-sm font-bold text-slate-900">
               No event types yet
             </div>
-            <div className="mt-1 text-sm text-slate-600">
+            <div className="mt-2 text-sm font-medium text-slate-600">
               Create your first event type above to generate a public booking
               link.
             </div>
           </div>
         ) : (
-          <div className="divide-y divide-slate-200">
+          <div className="divide-y divide-slate-200/60">
             {items.map((ev) => (
               <div
                 key={ev.id}
-                className="px-5 py-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between"
+                className="px-6 py-5 flex flex-col gap-4 md:flex-row md:items-start md:justify-between hover:bg-slate-50/50 transition-colors"
               >
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2.5">
                     <div className="text-sm font-semibold text-slate-900">
                       {ev.title}
                     </div>
-                    <span className="rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-semibold text-slate-600">
+                    <span className="rounded-full border border-slate-200 bg-gradient-to-r from-slate-100 to-slate-50 px-2.5 py-1 text-[11px] font-semibold text-slate-700 shadow-sm">
                       {ev.duration_minutes}m
                     </span>
-                    <span className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-[11px] font-mono text-slate-600">
+                    <span className="rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-mono font-medium text-slate-600 shadow-sm">
                       {ev.slug}
                     </span>
                   </div>
 
-                  <div className="mt-2 flex flex-wrap items-center gap-2 text-sm text-slate-600">
+                  <div className="mt-3 flex flex-wrap items-center gap-2.5 text-sm font-medium text-slate-600">
                     <span className="text-slate-500">Public link:</span>
                     <a
-                      className="truncate font-mono text-slate-900 underline decoration-slate-300 hover:decoration-slate-900"
+                      className="truncate font-mono text-slate-900 underline decoration-slate-300 transition-colors hover:decoration-slate-900 hover:text-slate-900"
                       href={`${publicBase}/book/${ev.slug}`}
                       target="_blank"
                       rel="noreferrer"
@@ -361,25 +369,30 @@ export default function EventTypesPage() {
                       {publicBase}/book/{ev.slug}
                     </a>
                     <button
-                      className="rounded-xl border border-slate-200 px-2.5 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                      className="flex items-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-slate-50 hover:shadow"
                       onClick={() => copyLink(ev)}
                       type="button"
                     >
-                      {copiedId === ev.id ? "Copied!" : "Copy"}
+                      {copiedId === ev.id ? (
+                        <>
+                          <CheckCircle2 className="h-3 w-3 mr-1" />
+                          Copied!
+                        </>
+                      ) : "Copy"}
                     </button>
                   </div>
                 </div>
 
-                <div className="flex shrink-0 gap-2">
+                <div className="flex shrink-0 gap-2.5">
                   <button
-                    className="rounded-2xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                    className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 shadow-sm transition-all hover:bg-slate-50 hover:shadow"
                     onClick={() => openEdit(ev)}
                     type="button"
                   >
                     Edit
                   </button>
                   <button
-                    className="rounded-2xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                    className="rounded-xl border border-red-200 bg-white px-4 py-2.5 text-sm font-bold text-red-700 shadow-sm transition-all hover:bg-red-50 hover:shadow"
                     onClick={() => onDelete(ev.id)}
                     type="button"
                   >
@@ -402,16 +415,16 @@ export default function EventTypesPage() {
               <div className="text-xs text-slate-500">
                 Changes apply to the public booking page immediately.
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 <button
-                  className="rounded-2xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                  className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-slate-50 hover:shadow"
                   onClick={() => setEditing(null)}
                   type="button"
                 >
                   Cancel
                 </button>
                 <button
-                  className="rounded-2xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-black disabled:opacity-60"
+                  className="rounded-xl bg-gradient-to-r from-slate-900 to-slate-800 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-slate-900/20 transition-all hover:from-slate-800 hover:to-slate-700 hover:shadow-lg disabled:opacity-60 disabled:hover:from-slate-900 disabled:hover:to-slate-800"
                   disabled={savingEdit}
                   onClick={saveEdit}
                   type="button"
@@ -422,13 +435,13 @@ export default function EventTypesPage() {
             </div>
           }
         >
-          <div className="grid gap-3">
+          <div className="grid gap-4">
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-600">
+              <label className="mb-2 block text-xs font-semibold text-slate-700">
                 Title
               </label>
               <input
-                className="w-full rounded-2xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-slate-400"
+                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                 value={eTitle}
                 onChange={(e) => setETitle(e.target.value)}
                 placeholder="Title"
@@ -436,44 +449,44 @@ export default function EventTypesPage() {
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-600">
+              <label className="mb-2 block text-xs font-semibold text-slate-700">
                 Description
               </label>
               <textarea
-                className="w-full min-h-[96px] rounded-2xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-slate-400"
+                className="w-full min-h-[96px] rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                 value={eDescription}
                 onChange={(e) => setEDescription(e.target.value)}
                 placeholder="Description"
               />
             </div>
 
-            <div className="grid gap-3 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-2">
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-600">
+                <label className="mb-2 block text-xs font-semibold text-slate-700">
                   Duration (minutes)
                 </label>
                 <input
                   type="number"
                   min="5"
                   step="5"
-                  className="w-full rounded-2xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-slate-400"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                   value={eDuration}
                   onChange={(e) => setEDuration(e.target.value)}
                 />
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-600">
+                <label className="mb-2 block text-xs font-semibold text-slate-700">
                   Slug
                 </label>
                 <input
-                  className="w-full rounded-2xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-slate-400"
+                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                   value={eSlug}
                   onChange={(e) => setESlug(e.target.value)}
                 />
-                <div className="mt-1 text-[11px] text-slate-500">
+                <div className="mt-2 text-[11px] font-medium text-slate-500">
                   Public URL:{" "}
-                  <span className="font-mono">
+                  <span className="font-mono text-slate-700">
                     {publicBase}/book/{eSlug || "<slug>"}
                   </span>
                 </div>
@@ -481,7 +494,7 @@ export default function EventTypesPage() {
             </div>
 
             {editError ? (
-              <div className="rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+              <div className="rounded-xl border border-red-200/80 bg-gradient-to-r from-red-50 to-red-50/50 px-4 py-3 text-sm font-medium text-red-700 shadow-sm">
                 {editError}
               </div>
             ) : null}

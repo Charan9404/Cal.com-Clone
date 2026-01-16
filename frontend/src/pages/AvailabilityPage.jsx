@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { getAvailability, updateAvailability } from "../lib/api";
 import TimezonePicker from "../components/TimezonePicker";
+import { Clock, CheckCircle2 } from "lucide-react";
 
 const weekdays = [
   { label: "Mon", val: 0 },
@@ -101,36 +102,43 @@ export default function AvailabilityPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
           Availability
         </h1>
         <p className="text-sm text-slate-600">
-          Set when you’re available for bookings.
+          Set when you're available for bookings.
         </p>
       </div>
 
       {/* Card */}
-      <div className="max-w-2xl rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-        <div className="border-b border-slate-200 px-5 py-4">
-          <div className="text-sm font-semibold text-slate-900">
-            Weekly schedule
-          </div>
-          <div className="mt-1 text-xs text-slate-500">
-            These hours are used to generate available slots on your public
-            booking page.
+      <div className="max-w-2xl overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 shadow-lg backdrop-blur-sm">
+        <div className="border-b border-slate-200/60 bg-gradient-to-r from-slate-50 to-white px-6 py-5">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900">
+              <Clock className="h-4 w-4 text-white" />
+            </div>
+            <div>
+              <div className="text-sm font-semibold text-slate-900">
+                Weekly schedule
+              </div>
+              <div className="mt-0.5 text-xs text-slate-500">
+                These hours are used to generate available slots on your public
+                booking page.
+              </div>
+            </div>
           </div>
         </div>
 
         {loading ? (
-          <div className="px-5 py-10 text-sm text-slate-600">Loading…</div>
+          <div className="px-6 py-12 text-sm font-medium text-slate-600">Loading…</div>
         ) : (
-          <div className="px-5 py-5 space-y-5">
+          <div className="px-6 py-6 space-y-6">
             {/* Timezone */}
             <div>
-              <div className="text-xs font-semibold text-slate-600">Timezone</div>
+              <div className="mb-2 text-xs font-semibold text-slate-700">Timezone</div>
               <div className="mt-2">
                 <TimezonePicker value={timezone} onChange={setTimezone} />
               </div>
@@ -141,8 +149,8 @@ export default function AvailabilityPage() {
 
             {/* Days */}
             <div>
-              <div className="text-xs font-semibold text-slate-600">Days</div>
-              <div className="mt-2 flex flex-wrap gap-2">
+              <div className="mb-2 text-xs font-bold text-slate-700">Days</div>
+              <div className="mt-2 flex flex-wrap gap-2.5">
                 {weekdays.map((d) => {
                   const active = selectedDays.has(d.val);
                   return (
@@ -151,10 +159,10 @@ export default function AvailabilityPage() {
                       onClick={() => toggleDay(d.val)}
                       type="button"
                       className={[
-                        "rounded-2xl px-3 py-2 text-sm font-semibold border transition",
+                        "rounded-xl px-4 py-2.5 text-sm font-semibold border transition-all shadow-sm",
                         active
-                          ? "bg-slate-900 text-white border-slate-900 shadow-sm"
-                          : "border-slate-200 text-slate-700 hover:bg-slate-50",
+                          ? "bg-gradient-to-r from-slate-900 to-slate-800 text-white border-slate-900 shadow-md shadow-slate-900/20"
+                          : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:shadow",
                       ].join(" ")}
                     >
                       {d.label}
@@ -165,22 +173,22 @@ export default function AvailabilityPage() {
             </div>
 
             {/* Time range */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <div className="text-xs font-semibold text-slate-600">From</div>
+                <div className="mb-2 text-xs font-bold text-slate-700">From</div>
                 <input
                   type="time"
-                  className="mt-2 w-full rounded-2xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-slate-400"
+                  className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                   value={start}
                   onChange={(e) => setStart(e.target.value)}
                 />
               </div>
 
               <div>
-                <div className="text-xs font-semibold text-slate-600">To</div>
+                <div className="mb-2 text-xs font-bold text-slate-700">To</div>
                 <input
                   type="time"
-                  className="mt-2 w-full rounded-2xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-slate-400"
+                  className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium shadow-sm outline-none transition-all focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                   value={end}
                   onChange={(e) => setEnd(e.target.value)}
                 />
@@ -189,30 +197,31 @@ export default function AvailabilityPage() {
 
             {/* Error / Saved */}
             {error ? (
-              <div className="rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+              <div className="rounded-xl border border-red-200/80 bg-gradient-to-r from-red-50 to-red-50/50 px-4 py-3 text-sm font-medium text-red-700 shadow-sm">
                 {error}
               </div>
             ) : null}
 
             {savedToast ? (
-              <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+              <div className="flex items-center gap-2 rounded-xl border border-emerald-200/80 bg-gradient-to-r from-emerald-50 to-emerald-50/50 px-4 py-3 text-sm font-medium text-emerald-700 shadow-sm">
+                <CheckCircle2 className="h-4 w-4" />
                 Saved!
               </div>
             ) : null}
 
             {/* Actions */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 pt-2">
               <button
                 onClick={onSave}
                 disabled={saving || !isValid}
-                className="rounded-2xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-black disabled:opacity-60"
+                className="rounded-xl bg-gradient-to-r from-slate-900 to-slate-800 px-5 py-3 text-sm font-semibold text-white shadow-md shadow-slate-900/20 transition-all hover:from-slate-800 hover:to-slate-700 hover:shadow-lg disabled:opacity-60 disabled:hover:from-slate-900 disabled:hover:to-slate-800"
               >
-                {saving ? "Saving…" : "Save"}
+                {saving ? "Saving…" : "Save Schedule"}
               </button>
 
               <button
                 type="button"
-                className="rounded-2xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                className="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-slate-50 hover:shadow"
                 onClick={() => {
                   setTimezone(availability?.timezone || "Asia/Kolkata");
                   if (availability?.rules?.length) {

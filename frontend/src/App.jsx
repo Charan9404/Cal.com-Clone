@@ -10,26 +10,26 @@ import ConfirmationPage from "./pages/ConfirmationPage";
 
 function NotFound() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-        <div className="text-xs font-semibold text-slate-500">404</div>
-        <h1 className="mt-2 text-2xl font-semibold tracking-tight">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-50 to-slate-100 text-slate-900 flex items-center justify-center p-4">
+      <div className="w-full max-w-md overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 p-8 shadow-xl backdrop-blur-sm">
+        <div className="text-xs font-bold tracking-wider uppercase text-slate-500">404</div>
+        <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
           Page not found
         </h1>
-        <p className="mt-2 text-sm text-slate-600">
-          The page you’re looking for doesn’t exist.
+        <p className="mt-3 text-sm font-medium text-slate-600">
+          The page you're looking for doesn't exist.
         </p>
 
-        <div className="mt-6 flex items-center gap-3">
+        <div className="mt-8 flex items-center gap-3">
           <Link
             to="/event-types"
-            className="rounded-2xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-black"
+            className="rounded-xl bg-gradient-to-r from-slate-900 to-slate-800 px-5 py-3 text-sm font-bold text-white shadow-md shadow-slate-900/20 transition-all hover:from-slate-800 hover:to-slate-700 hover:shadow-lg"
           >
             Go to dashboard
           </Link>
           <Link
             to="/"
-            className="rounded-2xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+            className="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-700 shadow-sm transition-all hover:bg-slate-50 hover:shadow"
           >
             Home
           </Link>
