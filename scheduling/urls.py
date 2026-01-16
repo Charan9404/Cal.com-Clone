@@ -1,27 +1,20 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import (
-    EventTypeViewSet,
-    AvailabilityViewSet,
-    BookingViewSet,
-    public_booking_detail,
-    public_event_type,
-    public_slots,
-    public_create_booking,
-)
+
+from . import views
 
 router = DefaultRouter()
-router.register(r"event-types", EventTypeViewSet, basename="event-types")
-router.register(r"availability", AvailabilityViewSet, basename="availability")
-router.register(r"bookings", BookingViewSet, basename="bookings")
+router.register(r"event-types", views.EventTypeViewSet, basename="event-types")
+router.register(r"bookings", views.BookingViewSet, basename="bookings")
 
 urlpatterns = [
-    path("api/", include(router.urls)),
+    # Admin APIs
+    path("", include(router.urls)),
+    path("availability/", views.AvailabilityViewSet.as_view({'get': 'list', 'put': 'update'}), name="availability"),
 
-    # public
-    path("api/public/event-types/<slug:slug>/", public_event_type),
-    path("api/public/slots/", public_slots),
-    path("api/public/bookings/", public_create_booking),
-    path("api/public/bookings/<uuid:uid>/", public_booking_detail),
-
+    # Public APIs
+    path("public/event-types/<slug:slug>/", views.public_event_type, name="public-event-type"),
+    path("public/slots/", views.public_slots, name="public-slots"),
+    path("public/bookings/", views.public_create_booking, name="public-create-booking"),
+    path("public/bookings/<uuid:uid>/", views.public_booking_detail, name="public-booking-detail"),
 ]
