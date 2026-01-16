@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: #f8fafc; /* slate-50 */
+  color: #0f172a;      /* slate-900 */
 }
