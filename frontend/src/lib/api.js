@@ -15,8 +15,11 @@ export const updateEventType = async (id, payload) =>
 export const deleteEventType = async (id) => api.delete(`/api/event-types/${id}/`);
 
 export const getAvailability = async () => (await api.get("/api/availability/")).data;
-export const updateAvailability = async (payload) =>
-  (await api.put(`/api/availability/${payload.id}/`, payload)).data;
+export const updateAvailability = async (payload) => {
+  // Remove id from payload as the endpoint doesn't use it
+  const { id, ...data } = payload;
+  return (await api.put("/api/availability/", data)).data;
+};
 
 export const listBookings = async (type = "upcoming") =>
   (await api.get(`/api/bookings/?type=${type}`)).data;
