@@ -60,6 +60,7 @@ export default function EventTypesPage() {
   const [slug, setSlug] = useState("");
   const [creating, setCreating] = useState(false);
   const [createError, setCreateError] = useState("");
+  const [createSuccess, setCreateSuccess] = useState(false);
 
   // edit modal
   const [editing, setEditing] = useState(null); // event object or null
@@ -98,6 +99,7 @@ export default function EventTypesPage() {
   async function onCreate(e) {
     e.preventDefault();
     setCreateError("");
+    setCreateSuccess(false);
 
     const t = title.trim();
     const s = slug.trim();
@@ -121,6 +123,8 @@ export default function EventTypesPage() {
       setDescription("");
       setDuration(15);
       setSlug("");
+      setCreateSuccess(true);
+      setTimeout(() => setCreateSuccess(false), 3000);
       await refresh();
     } catch (err) {
       // DRF usually sends {detail: "..."} or field errors
@@ -281,8 +285,13 @@ export default function EventTypesPage() {
             </div>
           </div>
 
-          {createError ? (
-            <div className="mt-5 rounded-xl border border-red-200/80 bg-gradient-to-r from-red-50 to-red-50/50 px-4 py-3 text-sm font-medium text-red-700 shadow-sm">
+          {createSuccess ? (
+            <div className="mt-5 flex items-center gap-2 rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
+              <CheckCircle2 className="h-4 w-4" />
+              Event created successfully! Scroll down to see it in your dashboard.
+            </div>
+          ) : createError ? (
+            <div className="mt-5 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
               {createError}
             </div>
           ) : null}
