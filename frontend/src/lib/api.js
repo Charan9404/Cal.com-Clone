@@ -1,30 +1,27 @@
 import axios from "axios";
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") || "http://127.0.0.1:8000";
 
 export const api = axios.create({
-  baseURL,
+  baseURL: BASE_URL,
 });
 
+// admin
 export const listEventTypes = async () => (await api.get("/api/event-types/")).data;
-export const createEventType = async (payload) =>
-  (await api.post("/api/event-types/", payload)).data;
-
+export const createEventType = async (payload) => (await api.post("/api/event-types/", payload)).data;
 export const updateEventType = async (id, payload) =>
   (await api.patch(`/api/event-types/${id}/`, payload)).data;
-
 export const deleteEventType = async (id) => api.delete(`/api/event-types/${id}/`);
 
 export const getAvailability = async () => (await api.get("/api/availability/")).data;
-
 export const updateAvailability = async (payload) =>
   (await api.put(`/api/availability/${payload.id}/`, payload)).data;
 
 export const listBookings = async (type = "upcoming") =>
   (await api.get(`/api/bookings/?type=${type}`)).data;
 
-export const cancelBooking = async (id) =>
-  (await api.post(`/api/bookings/${id}/cancel/`)).data;
+export const cancelBooking = async (id) => (await api.post(`/api/bookings/${id}/cancel/`)).data;
 
 // public
 export const getPublicEventType = async (slug) =>
