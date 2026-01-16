@@ -68,8 +68,11 @@ class BookingViewSet(viewsets.ReadOnlyModelViewSet):
 
 @api_view(["GET"])
 def public_event_type(request, slug: str):
-    et = EventType.objects.get(slug=slug, active=True)
-    return Response(EventTypeSerializer(et).data)
+    try:
+        et = EventType.objects.get(slug=slug, active=True)
+        return Response(EventTypeSerializer(et).data)
+    except EventType.DoesNotExist:
+        return Response({"detail": "Event type not found"}, status=404)
 
 @api_view(["GET"])
 def public_slots(request):
@@ -82,7 +85,10 @@ def public_slots(request):
     if not slug or not date_str:
         return Response({"detail": "slug and date required"}, status=400)
 
-    et = EventType.objects.get(slug=slug, active=True)
+    try:
+        et = EventType.objects.get(slug=slug, active=True)
+    except EventType.DoesNotExist:
+        return Response({"detail": "Event type not found"}, status=404)
     availability = Availability.objects.first()
     if not availability:
         return Response([])
@@ -140,7 +146,10 @@ def public_create_booking(request):
     if not all([slug, start_at_str, name, email]):
         return Response({"detail": "slug, startAt, name, email required"}, status=400)
 
-    et = EventType.objects.get(slug=slug, active=True)
+    try:
+        et = EventType.objects.get(slug=slug, active=True)
+    except EventType.DoesNotExist:
+        return Response({"detail": "Event type not found"}, status=404)
     availability = Availability.objects.first()
     if not availability:
         return Response({"detail": "availability not set"}, status=400)
@@ -173,11 +182,6 @@ def public_create_booking(request):
 
     return Response(BookingSerializer(booking).data, status=201)
 
-
-@api_view(["GET"])
-def public_booking_detail(request, uid):
-    b = get_object_or_404(Booking.objects.select_related("event_type"), booking_uid=uid)
-    return Response(BookingSerializer(b).data)
 
 @api_view(["GET"])
 def public_booking_detail(request, uid):
