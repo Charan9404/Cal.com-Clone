@@ -142,13 +142,21 @@ CORS_ALLOWED_ORIGINS = [o.strip().rstrip("/") for o in _raw.split(",") if o.stri
 csrf_env = os.getenv("CSRF_TRUSTED_ORIGINS", "")
 CSRF_TRUSTED_ORIGINS = [o.strip().rstrip("/") for o in csrf_env.split(",") if o.strip()]
 
+# Allow all Vercel preview and production URLs (for preview deployments)
+import re
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    re.compile(r"^https://.*\.vercel\.app$"),
+]
+
 # Production frontend URL - always add if not present
 frontend_url = "https://cal-com-clone-roan.vercel.app"
 if frontend_url not in CORS_ALLOWED_ORIGINS:
     CORS_ALLOWED_ORIGINS.append(frontend_url)
-
 if frontend_url not in CSRF_TRUSTED_ORIGINS:
     CSRF_TRUSTED_ORIGINS.append(frontend_url)
+
+# CORS settings for credentials
+CORS_ALLOW_CREDENTIALS = True
 
 # Helpful local dev fallback
 if DEBUG:
