@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate, Link } from "react-router-dom";
 import AdminLayout from "./components/AdminLayout";
 
+import HomePage from "./pages/HomePage";
 import EventTypesPage from "./pages/EventTypesPage";
 import AvailabilityPage from "./pages/AvailabilityPage";
 import BookingPage from "./pages/BookingPage";
@@ -42,9 +43,11 @@ function NotFound() {
 export default function App() {
   return (
     <Routes>
+      {/* Home */}
+      <Route path="/" element={<HomePage />} />
+
       {/* Admin */}
       <Route element={<AdminLayout />}>
-        <Route path="/" element={<Navigate to="/event-types" replace />} />
         <Route path="/event-types" element={<EventTypesPage />} />
         <Route path="/availability" element={<AvailabilityPage />} />
         <Route path="/bookings" element={<BookingPage />} />
